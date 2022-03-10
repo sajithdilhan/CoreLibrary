@@ -1,42 +1,78 @@
-﻿using CoreLibrary.Entities;
+﻿using CoreLibrary.DataProviders;
+using CoreLibrary.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreLibrary.Services
 {
-    public class HotelRoomDataService<T> : IHotelRoomDataService<T> where T : HotelRoom
+    public class HotelRoomDataService : IHotelRoomDataService
     {
+        private readonly IHotelRoomsDataProvider _hotelRoomsDataProvider;
+        public HotelRoomDataService(IHotelRoomsDataProvider hotelRoomsDataProvider)
+        {
+            _hotelRoomsDataProvider = hotelRoomsDataProvider;
+        }
+
         public string AssignRoom()
         {
-            throw new NotImplementedException();
+            var nearestAvailable = this.List().FirstOrDefault(r => r.Status == RoomStatus.Available);
+            if (nearestAvailable != null)
+            {
+                nearestAvailable.Status = RoomStatus.Occupied;
+                _hotelRoomsDataProvider.Update(nearestAvailable);
+                return nearestAvailable.RoomNumber;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
-        public void Checkout()
+        public bool Checkout(string roomNumber)
         {
-            throw new NotImplementedException();
+            var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
+            if (room != null && room.Status == RoomStatus.Occupied)
+            {
+                room.Status = RoomStatus.Vacant;
+                return true;
+            }
+            return false;
         }
 
-        public IEnumerable<T> List()
+        public IEnumerable<IHotelRoom> List()
         {
-            throw new NotImplementedException();
+            return _hotelRoomsDataProvider.List();
         }
 
-        public IEnumerable<T> List(System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        public IEnumerable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _hotelRoomsDataProvider.List(predicate);
         }
 
-        public void SetClean()
+        public bool SetClean(string roomNumber)
         {
-            throw new NotImplementedException();
+            var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
+            if (room != null && room.Status == RoomStatus.Vacant)
+            {
+                room.Status = RoomStatus.Available;
+                return true;
+            }
+            return false;
         }
 
-        public void SetOutOfService()
+        public bool SetOutOfService(string roomNumber)
         {
-            throw new NotImplementedException();
+            var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
+            if (room != null && room.Status == RoomStatus.Vacant)
+            {
+                room.Status = RoomStatus.Repair;
+                return true;
+            }
+            return false;
         }
     }
 }

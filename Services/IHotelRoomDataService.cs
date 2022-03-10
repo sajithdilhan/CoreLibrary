@@ -2,19 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreLibrary.Services
 {
-    public interface IHotelRoomDataService<T> :IEntityDataService<T> where T : HotelRoom
+    public interface IHotelRoomDataService : IEntityDataService<IHotelRoom>
     {
         string AssignRoom();
 
-        void Checkout();
+        bool Checkout(string roomNumber);
 
-        void SetClean();
+        bool SetClean(string roomNumber);
 
-        void SetOutOfService();
+        bool SetOutOfService(string roomNumber);
+
     }
 }

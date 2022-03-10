@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreLibrary.DataProviders
 {
-    public class HotelRoomsDataProvider : IEntityDataProvider<HotelRoom>
+    public class HotelRoomsDataProvider : IHotelRoomsDataProvider
     {
         private readonly HotelDataContext _dbContext;
 
@@ -19,32 +19,37 @@ namespace CoreLibrary.DataProviders
             _dbContext = dbContext;
         }
 
-        public void Delete(HotelRoom entity)
+        public void Delete(IHotelRoom entity)
         {
-            _dbContext.Set<HotelRoom>().Remove(entity);
+            _dbContext.Set<IHotelRoom>().Remove(entity);
             _dbContext.SaveChanges();
         }
 
-        public void Insert(HotelRoom entity)
+        public IHotelRoom FindByRoomNumber(string roomNumber)
         {
-            _dbContext.Set<HotelRoom>().Add(entity);
+            return _dbContext.Set<IHotelRoom>().FirstOrDefault(r => r.RoomNumber == roomNumber);
+        }
+
+        public void Insert(IHotelRoom entity)
+        {
+            _dbContext.Set<IHotelRoom>().Add(entity);
             _dbContext.SaveChanges();
         }
 
-        public IEnumerable<HotelRoom> List()
+        public IEnumerable<IHotelRoom> List()
         {
-            return _dbContext.Set<HotelRoom>().AsEnumerable();
+            return _dbContext.Set<IHotelRoom>().AsEnumerable();
         }
 
-        public IEnumerable<HotelRoom> List(Expression<Func<HotelRoom, bool>> predicate)
+        public IEnumerable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
         {
-            return _dbContext.Set<HotelRoom>().Where(predicate);
+            return _dbContext.Set<IHotelRoom>().Where(predicate);
         }
 
-        public void Update(HotelRoom entity)
+        public void Update(IHotelRoom entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.Set<HotelRoom>().Update(entity);          
+            _dbContext.Set<IHotelRoom>().Update(entity);
             _dbContext.SaveChanges();
         }
     }
