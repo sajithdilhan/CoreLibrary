@@ -5,7 +5,7 @@ namespace CoreLibrary.Entities
     public class HotelRoom : IHotelRoom
     {
         private string roomNumber;
-        private RoomStatus status;
+        private string status;
         private int id;
 
         [Required]
@@ -14,7 +14,7 @@ namespace CoreLibrary.Entities
         public string RoomNumber { get => roomNumber; set => roomNumber = value; }
 
         [Required]
-        public RoomStatus Status { get => status; set => status = value; }
+        public string Status { get => status; set => status = value; }
 
         public int Id { get => id; set => id = value; }
     }

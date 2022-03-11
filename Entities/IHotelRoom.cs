@@ -10,7 +10,7 @@ namespace CoreLibrary.Entities
     {
         string RoomNumber { get; set; }
 
-        RoomStatus Status { get; set; }
+        string Status { get; set; }
 
     }
 }

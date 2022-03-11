@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace CoreLibrary.Services
 {
     public class HotelRoomDataService : IHotelRoomDataService
@@ -19,10 +20,10 @@ namespace CoreLibrary.Services
 
         public string AssignRoom()
         {
-            var nearestAvailable = this.List().FirstOrDefault(r => r.Status == RoomStatus.Available);
+            var nearestAvailable = this.List().FirstOrDefault(r => r.Status == RoomStatusExtensions.Status_Available);
             if (nearestAvailable != null)
             {
-                nearestAvailable.Status = RoomStatus.Occupied;
+                nearestAvailable.Status = RoomStatusExtensions.Status_Occupied;
                 _hotelRoomsDataProvider.Update(nearestAvailable);
                 return nearestAvailable.RoomNumber;
             }
@@ -35,9 +36,10 @@ namespace CoreLibrary.Services
         public bool Checkout(string roomNumber)
         {
             var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
-            if (room != null && room.Status == RoomStatus.Occupied)
+            if (room != null && room.Status == RoomStatusExtensions.Status_Occupied)
             {
-                room.Status = RoomStatus.Vacant;
+                room.Status = RoomStatusExtensions.Status_Vacant;
+                _hotelRoomsDataProvider.Update(room);
                 return true;
             }
             return false;
@@ -56,9 +58,10 @@ namespace CoreLibrary.Services
         public bool SetClean(string roomNumber)
         {
             var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
-            if (room != null && room.Status == RoomStatus.Vacant)
+            if (room != null && room.Status == RoomStatusExtensions.Status_Vacant)
             {
-                room.Status = RoomStatus.Available;
+                room.Status = RoomStatusExtensions.Status_Available.ToString();
+                _hotelRoomsDataProvider.Update(room);
                 return true;
             }
             return false;
@@ -67,9 +70,10 @@ namespace CoreLibrary.Services
         public bool SetOutOfService(string roomNumber)
         {
             var room = _hotelRoomsDataProvider.FindByRoomNumber(roomNumber);
-            if (room != null && room.Status == RoomStatus.Vacant)
+            if (room != null && room.Status == RoomStatusExtensions.Status_Vacant)
             {
-                room.Status = RoomStatus.Repair;
+                room.Status = RoomStatusExtensions.Status_Repair;
+                _hotelRoomsDataProvider.Update(room);
                 return true;
             }
             return false;

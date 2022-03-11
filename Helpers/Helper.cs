@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace CoreLibrary
 {
-    public enum RoomStatus
+    //public enum RoomStatus
+    //{
+    //    Available,
+    //    Vacant,
+    //    Repair,
+    //    Occupied
+    //}
+
+    public static class RoomStatusExtensions
     {
-        Available,
-        Vacant,
-        Repair,
-        Occupied
+        public const string Status_Available = "Available";
+        public const string Status_Vacant = "Vacant";
+        public const string Status_Repair = "Repair";
+        public const string Status_Occupied = "Occupied";
     }
+    
 }

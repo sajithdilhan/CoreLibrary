@@ -27,7 +27,7 @@ namespace CoreLibrary.DataProviders
 
         public IHotelRoom FindByRoomNumber(string roomNumber)
         {
-            return _dbContext.Set<IHotelRoom>().FirstOrDefault(r => r.RoomNumber == roomNumber);
+            return _dbContext.Set<HotelRoom>().FirstOrDefault(r => r.RoomNumber == roomNumber);
         }
 
         public void Insert(IHotelRoom entity)
@@ -38,18 +38,18 @@ namespace CoreLibrary.DataProviders
 
         public IEnumerable<IHotelRoom> List()
         {
-            return _dbContext.Set<IHotelRoom>().AsEnumerable();
+            return _dbContext.Set<HotelRoom>().AsEnumerable();
         }
 
         public IEnumerable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
         {
-            return _dbContext.Set<IHotelRoom>().Where(predicate);
+            return _dbContext.Set<HotelRoom>().Where(predicate);
         }
 
         public void Update(IHotelRoom entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            _dbContext.Set<IHotelRoom>().Update(entity);
+            _dbContext.Set<HotelRoom>().Update((HotelRoom)entity);
             _dbContext.SaveChanges();
         }
     }
