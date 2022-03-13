@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CoreLibrary
+﻿namespace CoreLibrary
 {
     public interface IEntityBase
     {

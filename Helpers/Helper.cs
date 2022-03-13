@@ -1,19 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CoreLibrary
+﻿namespace CoreLibrary
 {
-    //public enum RoomStatus
-    //{
-    //    Available,
-    //    Vacant,
-    //    Repair,
-    //    Occupied
-    //}
-
     public static class RoomStatusExtensions
     {
         public const string Status_Available = "Available";
@@ -21,5 +7,5 @@ namespace CoreLibrary
         public const string Status_Repair = "Repair";
         public const string Status_Occupied = "Occupied";
     }
-    
+
 }
