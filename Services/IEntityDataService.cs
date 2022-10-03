@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CoreLibrary.Services
@@ -8,7 +9,7 @@ namespace CoreLibrary.Services
     {
         IEnumerable<T> List();
 
-        IEnumerable<T> List(Expression<Func<T, bool>> predicate);
+        IQueryable<T> List(Expression<Func<T, bool>> predicate);
 
     }
 }

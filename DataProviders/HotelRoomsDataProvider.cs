@@ -39,7 +39,7 @@ namespace CoreLibrary.DataProviders
             return _dbContext.Set<HotelRoom>().AsEnumerable();
         }
 
-        public IEnumerable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
+        public IQueryable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
         {
             return _dbContext.Set<HotelRoom>().Where(predicate);
         }

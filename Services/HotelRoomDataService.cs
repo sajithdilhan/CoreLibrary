@@ -48,7 +48,7 @@ namespace CoreLibrary.Services
             return _hotelRoomsDataProvider.List();
         }
 
-        public IEnumerable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
+        public IQueryable<IHotelRoom> List(Expression<Func<IHotelRoom, bool>> predicate)
         {
             return _hotelRoomsDataProvider.List(predicate);
         }
